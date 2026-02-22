@@ -17,7 +17,6 @@ function App() {
   const [sortBy, setSortBy] = useState("date");
   const [searchQuery, setSearchQuery] = useState("");
   const [history, setHistory] = useState([]);
-  const [draggedId, setDraggedId] = useState(null);
 
   const categories = ["general", "work", "personal", "shopping", "health"];
   const priorities = ["low", "medium", "high"];
@@ -164,39 +163,6 @@ function App() {
     }
   });
 
-  const handleDragStart = (id) => {
-    setDraggedId(id);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (droppedId) => {
-    if (draggedId === droppedId) return;
-
-    const draggedIdx = filtered.findIndex((t) => t.id === draggedId);
-    const droppedIdx = filtered.findIndex((t) => t.id === droppedId);
-
-    if (draggedIdx !== -1 && droppedIdx !== -1) {
-      const newTodos = [...todos];
-      const draggedTodo = todos.find((t) => t.id === draggedId);
-      const droppedTodo = todos.find((t) => t.id === droppedId);
-
-      const draggedIdxInAll = todos.indexOf(draggedTodo);
-      const droppedIdxInAll = todos.indexOf(droppedTodo);
-
-      [newTodos[draggedIdxInAll], newTodos[droppedIdxInAll]] = [
-        newTodos[droppedIdxInAll],
-        newTodos[draggedIdxInAll],
-      ];
-
-      addToHistory();
-      setTodos(newTodos);
-    }
-    setDraggedId(null);
-  };
-
   const totalTodos = todos.length;
   const completedTodos = todos.filter((todo) => todo.completed).length;
   const completionPercentage =
@@ -233,12 +199,6 @@ function App() {
         <div className="input-section">
           <div className="input-row">
             <input
-              type="date"
-              value={inputDate}
-              onChange={(e) => setInputDate(e.target.value)}
-              className="date-input"
-            />
-            <input
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
@@ -246,8 +206,14 @@ function App() {
               placeholder="Add Item"
               className="text-input"
             />
-            <button onClick={addTodo} className="add-btn">
-              ➕
+            <input
+              type="date"
+              value={inputDate}
+              onChange={(e) => setInputDate(e.target.value)}
+              className="date-input"
+            />
+            <button onClick={addTodo} className="add-btn" title="Add todo">
+              Add
             </button>
           </div>
           <div className="select-row">
@@ -361,11 +327,7 @@ function App() {
                     key={todo.id}
                     className={`todo-item priority-${todo.priority} ${
                       todo.completed ? "completed" : ""
-                    } ${draggedId === todo.id ? "dragging" : ""}`}
-                    draggable
-                    onDragStart={() => handleDragStart(todo.id)}
-                    onDragOver={handleDragOver}
-                    onDrop={() => handleDrop(todo.id)}
+                    }`}
                   >
                     <input
                       type="checkbox"
@@ -481,9 +443,7 @@ function App() {
             </button>
           )}
           <div className="shortcuts-hint">
-            <small>
-              💡 Ctrl+Z to undo • Double-click to edit • Drag to reorder
-            </small>
+            <small>💡 Ctrl+Z to undo • Double-click to edit</small>
           </div>
         </div>
       </div>
