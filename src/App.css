@@ -1,42 +1,221 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
   text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.87);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.input-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.date-input,
+.text-input {
+  padding: 12px;
+  border: 1px solid rgba(100, 108, 255, 0.5);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 1em;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.date-input:focus,
+.text-input:focus {
+  outline: none;
+  border-color: #646cff;
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 8px rgba(100, 108, 255, 0.3);
+}
+
+.date-input {
+  flex: 0 0 auto;
+  min-width: 150px;
+}
+
+.text-input {
+  flex: 1;
+  min-width: 150px;
+}
+
+.add-btn {
+  padding: 12px 24px;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.add-btn:hover {
+  background-color: #535bf2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.4);
+}
+
+.add-btn:active {
+  transform: translateY(0);
+}
+
+.stats {
+  text-align: center;
+  font-size: 1.1em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+  padding: 15px;
+  background-color: rgba(100, 108, 255, 0.1);
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.stats span {
+  margin: 0 8px;
+}
+
+.todos-section {
+  min-height: 200px;
+}
+
+.empty-message {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1em;
+  padding: 40px 20px;
+}
+
+.todos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  border-left: 3px solid rgba(100, 108, 255, 0.5);
+}
+
+.todo-item:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-left-color: #646cff;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #646cff;
+  flex-shrink: 0;
+}
+
+.todo-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.todo-text {
+  color: rgba(255, 255, 255, 0.87);
+  font-size: 1em;
+  word-break: break-word;
+}
+
+.todo-text.completed {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.todo-date {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85em;
+}
+
+.delete-btn {
+  padding: 6px 10px;
+  background-color: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
+  border: 1px solid rgba(255, 59, 48, 0.3);
+  border-radius: 4px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background-color: rgba(255, 59, 48, 0.2);
+  border-color: rgba(255, 59, 48, 0.5);
+}
+
+.delete-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 20px;
   }
-  to {
-    transform: rotate(360deg);
+
+  h1 {
+    font-size: 2em;
   }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  .input-section {
+    flex-direction: column;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .date-input,
+  .text-input {
+    width: 100%;
+    min-width: unset;
+  }
 
-.read-the-docs {
-  color: #888;
+  .add-btn {
+    width: 100%;
+  }
+
+  .todo-item {
+    flex-wrap: wrap;
+  }
+
+  .todo-content {
+    flex-basis: 100%;
+  }
 }
